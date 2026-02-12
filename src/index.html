@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复古俄罗斯方块 🎮</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="console">
+        <!-- 装饰螺丝 -->
+        <div class="decorative-screw screw-tl"></div>
+        <div class="decorative-screw screw-tr"></div>
+        <div class="decorative-screw screw-bl"></div>
+        <div class="decorative-screw screw-br"></div>
+
+        <!-- 屏幕区域 -->
+        <div class="screen-area">
+            <div class="screen-header">
+                <div class="power-light"></div>
+                <span class="screen-label">DOT MATRIX WITH STEREO SOUND</span>
+                <div class="battery-indicator">
+                    <div class="battery-bar"></div>
+                    <div class="battery-bar"></div>
+                    <div class="battery-bar"></div>
+                </div>
+            </div>
+            <div id="game-container"></div>
+        </div>
+
+        <!-- 手柄区域 -->
+        <div class="controller">
+            <!-- 十字键 -->
+            <div class="dpad-section">
+                <div class="dpad">
+                    <div class="dpad-btn dpad-up" data-action="up"></div>
+                    <div class="dpad-btn dpad-down" data-action="down"></div>
+                    <div class="dpad-btn dpad-left" data-action="left"></div>
+                    <div class="dpad-btn dpad-right" data-action="right"></div>
+                </div>
+                <div class="brand">
+                    <span class="brand-text">NINTENDO</span>
+                </div>
+            </div>
+
+            <!-- AB键 -->
+            <div class="ab-section">
+                <div class="ab-buttons">
+                    <div class="ab-btn btn-b" data-action="rotate">B</div>
+                    <div class="ab-btn btn-a" data-action="drop">A</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+
+    <!-- 触摸手柄支持 -->
+    <script>
+        document.querySelectorAll('.dpad-btn, .ab-btn').forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const action = btn.dataset.action;
+                window.gameActions = window.gameActions || {};
+                if (window.gameActions[action]) {
+                    window.gameActions[action]();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
